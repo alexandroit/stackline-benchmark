@@ -1,3 +1,19 @@
+# @stackline/benchmark
+
+Independent maintenance fork of `benchmark@2.1.4`. Original API, module format, runtime dependency ranges, and supported Node.js engines are preserved.
+
+```sh
+npm install @stackline/benchmark
+# Preserve existing imports with an npm alias:
+npm install benchmark@npm:@stackline/benchmark@1.0.0
+```
+
+See [UPSTREAM.md](UPSTREAM.md) for the exact source and issue review, and [CHANGELOG.md](CHANGELOG.md) for focused maintenance changes. Development and release tooling runs on Node.js 24; that does not change the library runtime requirement.
+
+Maintained by [Stackline](https://alexandro.net/). [Issues](https://github.com/alexandroit/stackline-benchmark/issues) · [npm](https://www.npmjs.com/package/@stackline/benchmark).
+
+## Upstream documentation
+
 # Benchmark.js v2.1.4
 
 A [robust](https://mathiasbynens.be/notes/javascript-benchmarking "Bulletproof JavaScript benchmarks") benchmarking library that supports high-resolution timers & returns statistically significant results. As seen on [jsPerf](https://jsperf.com/).

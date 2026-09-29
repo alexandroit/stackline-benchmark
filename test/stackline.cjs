@@ -1,0 +1,11 @@
+var assert = require('assert');
+var Benchmark = require(process.env.STACKLINE_TEST_PACKAGE || '..');
+assert.strictEqual(typeof Benchmark.Suite, 'function');
+var sync = new Benchmark('sync', function () { return Math.sqrt(64); }, {maxTime: 0.02, minSamples: 2, initCount: 1});
+sync.run();
+assert.ifError(sync.error); assert(sync.stats.sample.length >= 2); assert(sync.hz > 0);
+var completed = false;
+var deferred = new Benchmark('deferred', function (d) { setTimeout(function () { d.resolve(); }, 0); }, {defer: true, maxTime: 0.02, minSamples: 2, initCount: 1});
+deferred.on('complete', function () { assert.ifError(this.error); assert(this.stats.sample.length >= 2); completed = true; console.log('Benchmark sync and explicit deferred contracts passed'); });
+deferred.run({async: true});
+process.on('exit', function () { assert(completed, 'deferred benchmark completed'); });
