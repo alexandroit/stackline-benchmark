@@ -1,0 +1,24 @@
+{
+  "repository": "alexandroit/stackline-benchmark",
+  "packages": [
+    {
+      "name": "@stackline/benchmark",
+      "path": "README.md",
+      "version": "1.0.1",
+      "baselineVersion": "1.0.0",
+      "keywords": [
+        "stackline",
+        "npm-package",
+        "benchmark",
+        "performance",
+        "speed",
+        "maintenance-fork"
+      ],
+      "homepage": "https://alexandro.net/docs/vanilla/benchmark/",
+      "baselineTarball": "https://registry.npmjs.org/@stackline/benchmark/-/benchmark-1.0.0.tgz",
+      "baselineIntegrity": "sha512-9Ls2FdKteih11gDWmpOAWPhHLxvpUcR6WZH3POAt873RzJiNSmd9xkaLVyywO4DIER/6Dht/y+MZ09zvRt2aOw==",
+      "expectedSha512": "9ca0c4e0edad95c6684aa9e77d58f6d5219f3d8446ea2bfc86f09ffbf3a2417b64af4fc16fbbf93263baf9b1aea5c5a7ec7b9e86e1a6bbeeb1f4a74d6a81c7e9",
+      "tag": "docs-stackline-benchmark-v1.0.1"
+    }
+  ]
+}
