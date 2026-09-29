@@ -1,15 +1,16 @@
 {
   "name": "@stackline/benchmark",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A benchmarking library that supports high-resolution timers & returns statistically significant results.",
-  "homepage": "https://github.com/alexandroit/stackline-benchmark#readme",
+  "homepage": "https://alexandro.net/docs/vanilla/benchmark/",
   "license": "MIT",
   "main": "benchmark.js",
   "keywords": [
-    "benchmark,",
-    "performance,",
-    "speed",
     "stackline",
+    "npm-package",
+    "benchmark",
+    "performance",
+    "speed",
     "maintenance-fork"
   ],
   "author": "Mathias Bynens <mathias@qiwi.be> (https://mathiasbynens.be/)",
