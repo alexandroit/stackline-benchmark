@@ -2,7 +2,7 @@
 
 Based on [benchmark@2.1.4](https://www.npmjs.com/package/benchmark/v/2.1.4), commit [`061282627fdb7867d560729ca34b710fe8c48464`](https://github.com/bestiejs/benchmark.js/commit/061282627fdb7867d560729ca34b710fe8c48464). All published upstream runtime files match this commit byte-for-byte; npm tarball integrity was independently checked.
 
-The fork preserves runtime files, exports, CLI names and engine declarations. Original license and authorship notices remain. Development tooling runs on Node24 without raising the package runtime requirement.
+The upstream baseline runtime matches the published tarball. The fork preserves exports, CLI names and engine declarations, with one narrow security change: leading-comment scanning in getSource now runs linearly. Original license and authorship notices remain. Development tooling runs on Node24 without raising the package runtime requirement.
 
 ## Issue triage (2026-09-29)
 
@@ -15,3 +15,7 @@ No upstream maintainers were contacted. These are scoped compatibility decisions
 ## Verification
 
 `npm ci --ignore-scripts`, `npm test`, `npm run test:package`, and `npm audit --audit-level=low`. CI and CodeQL gate the exact immutable package artifact. Packed consumer tests install the resulting archive before exercising its public behavior.
+
+## CodeQL hardening
+
+CodeQL identified three exponential-backtracking paths in the original getSource regular expression. A linear comment scanner retains the use-strict-only detection semantics. The original full suite and repeated block/line-comment adversarial cases verify compatibility without accepting or dismissing the findings.

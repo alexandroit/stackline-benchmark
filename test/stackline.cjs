@@ -4,6 +4,11 @@ assert.strictEqual(typeof Benchmark.Suite, 'function');
 var sync = new Benchmark('sync', function () { return Math.sqrt(64); }, {maxTime: 0.02, minSamples: 2, initCount: 1});
 sync.run();
 assert.ifError(sync.error); assert(sync.stats.sample.length >= 2); assert(sync.hz > 0);
+// ReDoS regression: large repeated comment prefixes must not hang source detection.
+['/**/'.repeat(4000), '//comment\u2028'.repeat(4000), '/***//**/'.repeat(4000)].forEach(function (prefix) {
+  var probe = new Benchmark({fn: prefix + 'var answer = 42;', maxTime: 0.001, minSamples: 1, initCount: 1});
+  probe.run(); assert.ifError(probe.error);
+});
 var completed = false;
 var deferred = new Benchmark('deferred', function (d) { setTimeout(function () { d.resolve(); }, 0); }, {defer: true, maxTime: 0.02, minSamples: 2, initCount: 1});
 deferred.on('complete', function () { assert.ifError(this.error); assert(this.stats.sample.length >= 2); completed = true; console.log('Benchmark sync and explicit deferred contracts passed'); });

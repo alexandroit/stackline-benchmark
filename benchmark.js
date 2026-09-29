@@ -590,10 +590,28 @@
       // Trim string.
       result = (result || '').replace(/^\s+|\s+$/g, '');
 
-      // Detect strings containing only the "use strict" directive.
-      return /^(?:\/\*+[\w\W]*?\*\/|\/\/.*?[\n\r\u2028\u2029]|\s)*(["'])use strict\1;?$/.test(result)
-        ? ''
-        : result;
+      // Skip leading whitespace/comments in one pass. A repeated alternation
+      // here allowed crafted comment strings to trigger exponential backtracking.
+      var index = 0,
+          length = result.length,
+          end;
+      while (index < length) {
+        if (/\s/.test(result.charAt(index))) {
+          index++;
+        } else if (result.slice(index, index + 2) == '/*') {
+          end = result.indexOf('*/', index + 2);
+          if (end < 0) break;
+          index = end + 2;
+        } else if (result.slice(index, index + 2) == '//') {
+          end = index + 2;
+          while (end < length && !/[\n\r\u2028\u2029]/.test(result.charAt(end))) end++;
+          if (end == length) break;
+          index = end + 1;
+        } else {
+          break;
+        }
+      }
+      return /^(["'])use strict\1;?$/.test(result.slice(index)) ? '' : result;
     }
 
     /**
